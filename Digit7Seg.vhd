@@ -7,12 +7,11 @@ USE WORK.ALL;
 
 -----------------------------------------------------
 --
---  This block will contain a decoder to decode a 4-bit number
+--  This block contains a decoder to decode a 4-bit number
 --  to a 7-bit vector suitable to drive a HEX dispaly
 --  Many examples could be find on the web (Generic block)
 --
---  It is a purely combinational block and
---  is similar to a block you designed in Lab 1.
+--  It is a purely combinational block.
 --
 --------------------------------------------------------
 
