@@ -69,21 +69,21 @@ ARCHITECTURE structural OF Roulette IS
 	
 	------ LOCAL SIGNALS ------
 		
-	signal slow_clock					: std_logic;
-	signal resetb						: std_logic;
-	signal spin_result_latched		: unsigned(5 downto 0)	:= "000000";
-	signal spin_result_extended	: unsigned(7 downto 0)	:= "00000000" or spin_result_latched;
-	signal bet1_value					: unsigned(5 downto 0)	:= "000000";
+	signal slow_clock				: std_logic;
+	signal resetb					: std_logic;
+	signal spin_result_latched			: unsigned(5 downto 0)	:= "000000";
+	signal spin_result_extended			: unsigned(7 downto 0)	:= "00000000" or spin_result_latched;
+	signal bet1_value				: unsigned(5 downto 0)	:= "000000";
 	signal bet2_colour				: std_logic					:= '0';
-	signal bet3_dozen					: unsigned(1 downto 0)	:= "00";
-	signal bet1_wins					: std_logic					:= '0';
-	signal bet2_wins					: std_logic					:= '0';
-	signal bet3_wins					: std_logic					:= '0';
-	signal money						: unsigned(11 downto 0) := "000000100000";
+	signal bet3_dozen				: unsigned(1 downto 0)	:= "00";
+	signal bet1_wins				: std_logic					:= '0';
+	signal bet2_wins				: std_logic					:= '0';
+	signal bet3_wins				: std_logic					:= '0';
+	signal money					: unsigned(11 downto 0) := "000000100000";
 	signal bet1_amount				: unsigned(2 downto 0)	:= "000";
 	signal bet2_amount				: unsigned(2 downto 0)	:= "000";
 	signal bet3_amount				: unsigned(2 downto 0)	:= "000";
-	signal new_money					: unsigned(11 downto 0)	:= "000000000000";
+	signal new_money				: unsigned(11 downto 0)	:= "000000000000";
 	signal spin_result				: unsigned(5 downto 0)	:= "000000";
 	
 	
@@ -118,46 +118,46 @@ BEGIN
 	
 	wd		: WinDetector port map (
 		spin_result_latched	=>	spin_result_latched,
-		bet1_value				=>	bet1_value,
-		bet2_colour				=>	bet2_colour,
-		bet3_dozen 				=>	bet3_dozen,
-		bet1_wins 				=> bet1_wins,
-		bet2_wins				=>	bet2_wins,
-		bet3_wins 				=> bet3_wins );
+		bet1_value		=>	bet1_value,
+		bet2_colour		=>	bet2_colour,
+		bet3_dozen 		=>	bet3_dozen,
+		bet1_wins 		=> 	bet1_wins,
+		bet2_wins		=>	bet2_wins,
+		bet3_wins 		=> 	bet3_wins );
 		
 	
 	nb		: New_Balance port map (
 		money 		=> money,
-		value1 		=>	bet1_amount,
-		value2		=>	bet2_amount,
-		value3 		=>	bet3_amount,
-		bet1_wins 	=>	bet1_wins,
-		bet2_wins 	=>	bet2_wins,
+		value1 		=> bet1_amount,
+		value2		=> bet2_amount,
+		value3 		=> bet3_amount,
+		bet1_wins 	=> bet1_wins,
+		bet2_wins 	=> bet2_wins,
 		bet3_wins 	=> bet3_wins,
 		new_money	=> new_money );
 		
 	ds0 	: Digit7Seg port map (
 		digit	=> money_dig0,
-		seg7  => HEX0 );
+		seg7  	=> HEX0 );
 	
 	ds1	: Digit7Seg port map (
-		digit =>	money_dig1,
+		digit 	=> money_dig1,
 		seg7	=> HEX1 );
 		
 	ds2	: Digit7Seg port map (
-		digit => money_dig2,
+		digit 	=> money_dig2,
 		seg7	=> HEX2 );
 		
 	ds3	: Digit7Seg port map (
-		digit => money_dig3,
+		digit 	=> money_dig3,
 		seg7	=> HEX3 );
 		
 	ds6	: Digit7Seg port map (
-		digit => spin_dig0,
+		digit 	=> spin_dig0,
 		seg7	=> HEX6 );
 		
 	ds7	: Digit7Seg port map (
-		digit => spin_dig1,
+		digit 	=> spin_dig1,
 		seg7	=> HEX7 );
 		
 	sp 	: SpinWheel port map (
@@ -166,20 +166,20 @@ BEGIN
 		spin_result		=> spin_result );
 		
 	db	: Debouncer port map (
-		clk			=> CLOCK_50,
+		clk		=> CLOCK_50,
 		button		=> KEY(0),
 		result		=> slow_clock );
 		
 	Reg2	: Register12Bit port map (
 		d(5 downto 0) 	=> spin_result,
-		clr				=> KEY(1),
-		clk				=> slow_clock,
+		clr		=> KEY(1),
+		clk		=> slow_clock,
 		q(5 downto 0)	=> spin_result_latched );
 		
 	Reg3	: Register12Bit port map (
 		d(5 downto 0)	=> unsigned(SW(8 downto 3)),
-		clr				=> KEY(1),
-		clk				=> slow_clock,
+		clr		=> KEY(1),
+		clk		=> slow_clock,
 		q(5 downto 0)	=> bet1_value );
 		
 	Reg4	: Register12Bit port map (
@@ -190,38 +190,38 @@ BEGIN
 		
 	Reg5	: Register12Bit port map (
 		d(1 downto 0)	=> unsigned(SW(17 downto 16)),
-		clr				=> KEY(1),
-		clk				=> slow_clock,
+		clr		=> KEY(1),
+		clk		=> slow_clock,
 		q(1 downto 0)	=> bet3_dozen );
 	
 	Reg7	: Register12Bit port map (
 		d(2 downto 0) 	=> unsigned(SW(2 downto 0)),
-		clr				=> KEY(1),
-		clk				=> slow_clock,
+		clr		=> KEY(1),
+		clk		=> slow_clock,
 		q(2 downto 0)	=> bet1_amount );
 	
 	Reg8	: Register12Bit port map (
 		d(2 downto 0) 	=> unsigned(SW(11 downto 9)),
-		clr				=> KEY(1),
-		clk				=> slow_clock,
+		clr		=> KEY(1),
+		clk		=> slow_clock,
 		q(2 downto 0)	=> bet2_amount );
 
 	Reg9	: Register12Bit port map (
 		d(2 downto 0) 	=> unsigned(SW(15 downto 13)),
-		clr				=> KEY(1),
-		clk				=> slow_clock,
+		clr		=> KEY(1),
+		clk		=> slow_clock,
 		q(2 downto 0)	=> bet3_amount );
 		
 	Reg10	: MoneyRegister port map (
 		d(11 downto 0)	=> new_money,
-		clr				=> KEY(1),
-		clk				=> slow_clock,
+		clr		=> KEY(1),
+		clk		=> slow_clock,
 		q(11 downto 0)	=> money );
 		
 	b2d1	: BinaryToDecimal port map (
 		bin	=> new_money,
 		dig0	=> money_dig0,
-		dig1  => money_dig1,
+		dig1  	=> money_dig1,
 		dig2 	=> money_dig2,
 		dig3	=> money_dig3 );
 		
