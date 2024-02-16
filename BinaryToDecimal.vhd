@@ -9,7 +9,7 @@ USE WORK.ALL;
 ENTITY BinaryToDecimal IS
 	PORT(	bin	: IN 	UNSIGNED(11 downto 0);
 			dig0	: OUT UNSIGNED(3 downto 0);
-			dig1  : OUT UNSIGNED(3 downto 0);
+			dig1  	: OUT UNSIGNED(3 downto 0);
 			dig2 	: OUT UNSIGNED(3 downto 0);
 			dig3	: OUT UNSIGNED(3 downto 0) );
 END BinaryToDecimal;
@@ -25,7 +25,7 @@ BEGIN
 
 	VARIABLE temp		: unsigned(11 downto 0);
 	VARIABLE tempInt	: integer range 0 to 4095;
-	VARIABLE tempOp	: unsigned(11 downto 0);
+	VARIABLE tempOp		: unsigned(11 downto 0);
 	VARIABLE op0		: unsigned(3 downto 0);
 	VARIABLE op1		: unsigned(3 downto 0);
 	VARIABLE op2		: unsigned(3 downto 0);
